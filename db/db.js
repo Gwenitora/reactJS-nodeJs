@@ -16,7 +16,7 @@ module.exports = {
       }
       
       //remplacer whatever par le nom de votre DB !
-      dbConnection = db.db("whatever");
+      dbConnection = db.db("groupb9");
       console.log("Successfully connected to MongoDB.");
     });
   },
