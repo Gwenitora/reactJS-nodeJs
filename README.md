@@ -1,1 +1,3 @@
-# reactJS-nodeJs
+# reactJS-nodeJs  
+
+Gwendal Acquart--Reylans & Kyllian Tondu
