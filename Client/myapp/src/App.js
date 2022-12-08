@@ -11,7 +11,7 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/pokaball">
+        <Route path="/pokaball">
           <Pokaball />
         </Route>
         <Route path="/">
