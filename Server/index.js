@@ -11,16 +11,16 @@ dbo.connectToServer();
 
 const body = function(req){
   let body = req.body;
-  console.log("body",body);
   if (body._id) {
     body._id = ObjectId(body._id);
   }
   return body;
 }
 const listBDD = async (collection, body) => {
-  return await dbo.getDb().collection(collection).find(body).toArray((err,result) => {
-    console.log("res",result.length);
-    return result;
+  return await new Promise(res => {
+    dbo.getDb().collection(collection).find(body).toArray((err,result) => {
+      res(result);
+    });
   });
 };
 const insertBDD = function(collection, body){
@@ -49,8 +49,8 @@ const getID = function(array){
 };
 
 // Types
-app.post("/type/list",jsonParser, function (req, res) {
-  const result = listBDD("types", body(req, res), res);
+app.post("/type/list",jsonParser, async function (req, res) {
+  const result = await listBDD("types", body(req, res), res);
   res.json(result);
 });
 app.post('/type/insert', jsonParser, (req, res) => {
@@ -63,23 +63,13 @@ app.post('/type/update', jsonParser, (req, res) => {
   updateBDD("types", body(req, res));
 });
 // Pokémons 
-app.post("/pokemon/list",jsonParser, async function (req, res) {
-  const yo = await listBDD("pokemons", body(req, res), res).then((hh)=>hh);
-  console.log(yo);
-  await res.json(yo);
-  // const dbConnect = dbo.getDb();
-  // const collPokemon = dbConnect.collection("pokemons");
-  // const result = collPokemon.find(body(req, res)).toArray(function (err, result) {
-  //   if (err) {
-  //     res.status(400).send("Error fetching pokemons!");
-  //   } else {
-  //     res.json(result);
-  //   }
-  // });
+app.post("/pokemon/list",jsonParser, async (req, res) => {
+  const result = await listBDD("pokemons", body(req, res), res).then((hh)=>hh);
+  await res.json(result);
 });
-app.post('/pokemon/insert', jsonParser, (req, res) => {
+app.post('/pokemon/insert', jsonParser, async (req, res) => {
   insertBDD("pokemons", body(req, res));
-  var type = listBDD("types", body(req, res));
+  var type = await listBDD("types", body(req, res));
   type = getID(type)
   var insertType = [body(req, res), type];
   updateBDD("pokemons", insertType);
@@ -91,12 +81,12 @@ app.post('/pokemon/update', jsonParser, (req, res) => {
   updateBDD("pokemons", body(req, res));
 });
 // Pokadex
-app.post("/pokadex/list",jsonParser, function (req, res) {
-  const result = listBDD("pokadex", body(req, res));
+app.post("/pokadex/list",jsonParser, async function (req, res) {
+  const result = await listBDD("pokadex", body(req, res));
   res.json(result)
 });
-app.post('/pokadex/insert', jsonParser, (req, res) => {
-  var pokemon = listBDD("pokemons", body(req, res));
+app.post('/pokadex/insert', jsonParser, async (req, res) => {
+  var pokemon = await listBDD("pokemons", body(req, res));
   pokemon = getID(pokemon)
   insertBDD("pokadex", pokemon);
 });
