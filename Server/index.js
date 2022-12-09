@@ -107,9 +107,7 @@ app.post('/pokadex/insert', jsonParser, async (req, res) => {
   const bod = await body(req, res);
   var pokemons = await listBDD("pokemons", bod);
   pokemons = getID(pokemons)
-  console.log('multi', pokemons);
   pokemons.forEach(pokemon => {
-    console.log('solo', pokemon);
     insertBDD("pokadex", {pokaID: pokemon})
   });
 });
