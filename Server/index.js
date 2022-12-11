@@ -58,14 +58,17 @@ app.post("/type/list",jsonParser, async function (req, res) {
 app.post('/type/insert', jsonParser, async (req, res) => {
   const bod = await body(req, res);
   insertBDD("types", bod);
+  await res.json({"message": "validate"});
 });
 app.delete('/type/delete', jsonParser, async (req, res) => {
   const bod = await body(req, res);
   deleteBDD("types", bod);
+  await res.json({"message": "validate"});
 });
 app.post('/type/update', jsonParser, async (req, res) => {
   const bod = await body(req, res);
   updateBDD("types", bod);
+  await res.json({"message": "validate"});
 });
 // Pokémons 
 app.post("/pokemon/list",jsonParser, async (req, res) => {
@@ -82,10 +85,12 @@ app.post('/pokemon/insert', jsonParser, async (req, res) => {
     var insertType = {before: bod.name, after: {type: type}};
     updateBDD("pokemons", insertType);
   }
+  await res.json({"message": "validate"});
 });
 app.delete('/pokemon/delete', jsonParser, async (req, res) => {
   const bod = await body(req, res);
   deleteBDD("pokemons", bod);
+  await res.json({"message": "validate"});
 });
 app.post('/pokemon/update', jsonParser, async (req, res) => {
   const bod = await body(req, res);
@@ -96,6 +101,7 @@ app.post('/pokemon/update', jsonParser, async (req, res) => {
     var insertType = {before: bod.before, after: {type: type}};
     updateBDD("pokemons", insertType);
   }
+  await res.json({"message": "validate"});
 });
 // Pokadex
 app.post("/pokadex/list",jsonParser, async function (req, res) {
@@ -110,10 +116,12 @@ app.post('/pokadex/insert', jsonParser, async (req, res) => {
   pokemons.forEach(pokemon => {
     insertBDD("pokadex", {pokaID: pokemon})
   });
+  await res.json({"message": "validate"});
 });
 app.delete('/pokadex/delete', jsonParser, async (req, res) => {
   const bod = await body(req, res);
   deleteBDD("pokadex", bod);
+  await res.json({"message": "validate"});
 });
 
 // Listen
