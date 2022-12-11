@@ -17,6 +17,7 @@ const body = async function(req){
   return await new Promise(res => {res(body)});
 }
 const listBDD = async (collection, body) => {
+  console.log('Search ', collection, ':', body)
   return await new Promise(res => {
     dbo.getDb().collection(collection).find(body).toArray((err,result) => {
       res(result);
@@ -51,32 +52,43 @@ const getID = function(array){
 
 // Types
 app.post("/type/list",jsonParser, async function (req, res) {
+  console.log(" ");
   const bod = await body(req, res);
   const result = await listBDD("types", bod);
+  console.log(" ");
   res.json(result);
 });
 app.post('/type/insert', jsonParser, async (req, res) => {
+  console.log(" ");
   const bod = await body(req, res);
   insertBDD("types", bod);
+  console.log(" ");
   await res.json({"message": "validate"});
 });
 app.delete('/type/delete', jsonParser, async (req, res) => {
+  console.log(" ");
   const bod = await body(req, res);
   deleteBDD("types", bod);
+  console.log(" ");
   await res.json({"message": "validate"});
 });
 app.post('/type/update', jsonParser, async (req, res) => {
+  console.log(" ");
   const bod = await body(req, res);
   updateBDD("types", bod);
+  console.log(" ");
   await res.json({"message": "validate"});
 });
 // Pokémons 
 app.post("/pokemon/list",jsonParser, async (req, res) => {
+  console.log(" ");
   const bod = await body(req, res);
   const result = await listBDD("pokemons", bod);
+  console.log(" ");
   await res.json(result);
 });
 app.post('/pokemon/insert', jsonParser, async (req, res) => {
+  console.log(" ");
   const bod = await body(req, res);
   insertBDD("pokemons", bod);
   if (bod.type) {
@@ -85,14 +97,18 @@ app.post('/pokemon/insert', jsonParser, async (req, res) => {
     var insertType = {before: bod.name, after: {type: type}};
     updateBDD("pokemons", insertType);
   }
+  console.log(" ");
   await res.json({"message": "validate"});
 });
 app.delete('/pokemon/delete', jsonParser, async (req, res) => {
+  console.log(" ");
   const bod = await body(req, res);
   deleteBDD("pokemons", bod);
+  console.log(" ");
   await res.json({"message": "validate"});
 });
 app.post('/pokemon/update', jsonParser, async (req, res) => {
+  console.log(" ");
   const bod = await body(req, res);
   updateBDD("pokemons", bod);
   if (bod.after.type) {
@@ -101,26 +117,33 @@ app.post('/pokemon/update', jsonParser, async (req, res) => {
     var insertType = {before: bod.before, after: {type: type}};
     updateBDD("pokemons", insertType);
   }
+  console.log(" ");
   await res.json({"message": "validate"});
 });
 // Pokadex
 app.post("/pokadex/list",jsonParser, async function (req, res) {
+  console.log(" ");
   const bod = await body(req, res);
   const result = await listBDD("pokadex", bod);
+  console.log(" ");
   res.json(result)
 });
 app.post('/pokadex/insert', jsonParser, async (req, res) => {
+  console.log(" ");
   const bod = await body(req, res);
   var pokemons = await listBDD("pokemons", bod);
   pokemons = getID(pokemons)
   pokemons.forEach(pokemon => {
     insertBDD("pokadex", {pokaID: pokemon})
   });
+  console.log(" ");
   await res.json({"message": "validate"});
 });
 app.delete('/pokadex/delete', jsonParser, async (req, res) => {
+  console.log(" ");
   const bod = await body(req, res);
   deleteBDD("pokadex", bod);
+  console.log(" ");
   await res.json({"message": "validate"});
 });
 
