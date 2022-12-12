@@ -45,9 +45,9 @@ export function PokadexSearch(){
 
     return <div className='center-pokemon-list'><div className="pokemon-list">
     {
-        pokemons.map(async (pokemon,key) => {
+        pokemons.map( (pokemon,key) => {
             console.log(pokemon.img)
-            return await <Pokaball pokemon={pokemon.img} />;
+            return <Pokaball pokemon={pokemon.img} />;
         })
     }
     </div></div>;
