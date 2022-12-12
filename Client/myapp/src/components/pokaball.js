@@ -15,6 +15,7 @@ function Pokaball(){
             z"
             fill="#fff" stroke="#222"
         ></path>
+        <img src={props.pokemon} />
     </svg>);
 }
 

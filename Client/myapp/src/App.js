@@ -5,14 +5,14 @@ import {
 } from "react-router-dom";
 import './App.css';
 import Home from './pages/home';
-import Pokaball from './components/pokaball';
+import PokemonSearch from "./api/commandes";
 
 function App() {
   return (
     <Router>
       <Switch>
         <Route path="/pokaball">
-          <Pokaball />
+          <PokemonSearch />
         </Route>
         <Route path="/">
           <Home />

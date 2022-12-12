@@ -64,19 +64,19 @@ app.post('/type/insert', jsonParser, async (req, res) => {
   console.log(" ");
   const bod = await body(req, res);
   insertBDD("types", bod);
-  await res.json({"message": "Your request is send with sucess"});
+  await res.json({"message": "Your request is sent with sucess"});
 });
 app.delete('/type/delete', jsonParser, async (req, res) => {
   console.log(" ");
   const bod = await body(req, res);
   await deleteBDD("types", bod);
-  await res.json({"message": "Your request is send with sucess"});
+  await res.json({"message": "Your request is sent with sucess"});
 });
 app.post('/type/update', jsonParser, async (req, res) => {
   console.log(" ");
   const bod = await body(req, res);
-  updateBDD("types", bod);
-  await res.json({"message": "Your request is send with sucess"});
+  await updateBDD("types", bod);
+  await res.json({"message": "Your request is sent with sucess"});
 });
 // Pokémons 
 app.post("/pokemon/list",jsonParser, async (req, res) => {
@@ -94,13 +94,13 @@ app.post('/pokemon/insert', jsonParser, async (req, res) => {
     var insertType = {before: bod.name, after: {type: type}};
     updateBDD("pokemons", insertType);
   }
-  await res.json({"message": "Your request is send with sucess"});
+  await res.json({"message": "Your request is sent with sucess"});
 });
 app.delete('/pokemon/delete', jsonParser, async (req, res) => {
   console.log(" ");
   const bod = await body(req, res);
   await deleteBDD("pokemons", bod);
-  await res.json({"message": "Your request is send with sucess"});
+  await res.json({"message": "Your request is sent with sucess"});
 });
 app.post('/pokemon/update', jsonParser, async (req, res) => {
   console.log(" ");
@@ -111,7 +111,7 @@ app.post('/pokemon/update', jsonParser, async (req, res) => {
     var insertType = {before: bod.before, after: {type: type}};
     updateBDD("pokemons", insertType);
   }
-  await res.json({"message": "Your request is send with sucess"});
+  await res.json({"message": "Your request is sent with sucess"});
 });
 // Pokadex
 app.post("/pokadex/list",jsonParser, async function (req, res) {
@@ -127,13 +127,13 @@ app.post('/pokadex/insert', jsonParser, async (req, res) => {
   pokemons.forEach(pokemon => {
     insertBDD("pokadex", {pokaID: pokemon})
   });
-  await res.json({"message": "Your request is send with sucess"});
+  await res.json({"message": "Your request is sent with sucess"});
 });
 app.delete('/pokadex/delete', jsonParser, async (req, res) => {
   console.log(" ");
   const bod = await body(req, res);
   await deleteBDD("pokadex", bod);
-  await res.json({"message": "Your request is send with sucess"});
+  await res.json({"message": "Your request is sent with sucess"});
 });
 
 // Listen
