@@ -6,6 +6,9 @@ const bodyParser = require('body-parser');
 const { ObjectId } = require("mongodb");
 app.use(bodyParser.urlencoded({ extended: true }));
 
+var cors = require('cors')
+app.use(cors())
+
 const jsonParser = bodyParser.json();
 dbo.connectToServer();
 
