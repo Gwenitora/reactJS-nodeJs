@@ -69,7 +69,8 @@ app.post('/type/insert', jsonParser, async (req, res) => {
 app.delete('/type/delete', jsonParser, async (req, res) => {
   console.log(" ");
   const bod = await body(req, res);
-  deleteBDD("types", bod);
+  const search = await listBDD("pokadex", bod);
+  await deleteBDD("types", search);
   await res.json({"message": "Your request is send with sucess"});
 });
 app.post('/type/update', jsonParser, async (req, res) => {
@@ -99,7 +100,8 @@ app.post('/pokemon/insert', jsonParser, async (req, res) => {
 app.delete('/pokemon/delete', jsonParser, async (req, res) => {
   console.log(" ");
   const bod = await body(req, res);
-  deleteBDD("pokemons", bod);
+  const search = await listBDD("pokadex", bod);
+  await deleteBDD("pokemons", search);
   await res.json({"message": "Your request is send with sucess"});
 });
 app.post('/pokemon/update', jsonParser, async (req, res) => {
@@ -123,7 +125,7 @@ app.post("/pokadex/list",jsonParser, async function (req, res) {
 app.post('/pokadex/insert', jsonParser, async (req, res) => {
   console.log(" ");
   const bod = await body(req, res);
-  var pokemons = getID("pokemons", bod)
+  var pokemons = await getID("pokemons", bod)
   pokemons.forEach(pokemon => {
     insertBDD("pokadex", {pokaID: pokemon})
   });
@@ -132,7 +134,8 @@ app.post('/pokadex/insert', jsonParser, async (req, res) => {
 app.delete('/pokadex/delete', jsonParser, async (req, res) => {
   console.log(" ");
   const bod = await body(req, res);
-  deleteBDD("pokadex", bod);
+  const search = await listBDD("pokadex", bod);
+  await deleteBDD("pokadex", search);
   await res.json({"message": "Your request is send with sucess"});
 });
 
@@ -140,3 +143,4 @@ app.delete('/pokadex/delete', jsonParser, async (req, res) => {
 app.listen(port, function () {
   console.log(`App listening on port ${port}!`);
 });
+cls
