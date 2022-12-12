@@ -42,12 +42,15 @@ const updateBDD = function(collection, body){
   const collPokemon = dbConnect.collection(collection);
   collPokemon.updateOne(body.before, {$set: body.after});
 };
-const getID = function(array){
-  ids = []
-  array.forEach(element => 
-    ids.push(element._id)
-  );
-  return ids;
+const getID = async function(collection, array){
+  return await new Promise(async res => {
+    ids = await [];
+    for (const element of array) {
+      var take = await listBDD(collection, element);
+      ids.push(take[0]._id);
+    };
+    res(ids)
+  });
 };
 
 // Types
@@ -87,8 +90,7 @@ app.post('/pokemon/insert', jsonParser, async (req, res) => {
   const bod = await body(req, res);
   insertBDD("pokemons", bod);
   if (bod.type) {
-    var type = await listBDD("types", bod.type);
-    type = await getID(type)
+    var type = await getID("types", bod.type)
     var insertType = {before: bod.name, after: {type: type}};
     updateBDD("pokemons", insertType);
   }
@@ -103,10 +105,9 @@ app.delete('/pokemon/delete', jsonParser, async (req, res) => {
 app.post('/pokemon/update', jsonParser, async (req, res) => {
   console.log(" ");
   const bod = await body(req, res);
-  updateBDD("pokemons", bod);
+  await updateBDD("pokemons", bod);
   if (bod.after.type) {
-    var type = await listBDD("types", bod.after.type);
-    type = await getID(type)
+    var type = await getID("types", bod.after.type)
     var insertType = {before: bod.before, after: {type: type}};
     updateBDD("pokemons", insertType);
   }
@@ -122,8 +123,7 @@ app.post("/pokadex/list",jsonParser, async function (req, res) {
 app.post('/pokadex/insert', jsonParser, async (req, res) => {
   console.log(" ");
   const bod = await body(req, res);
-  var pokemons = await listBDD("pokemons", bod);
-  pokemons = getID(pokemons)
+  var pokemons = getID("pokemons", bod)
   pokemons.forEach(pokemon => {
     insertBDD("pokadex", {pokaID: pokemon})
   });
