@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Pokaball from "../components/pokaball";
 
-function PokemonSearch(){
+export function PokemonSearch(){
     const searchBar = {};
     const [ pokemons, setPokemons ] = useState([]);
 
@@ -25,4 +25,30 @@ function PokemonSearch(){
     </div></div>;
 }
 
-export default PokemonSearch;
+export function PokadexSearch(){
+    const searchBar = {};
+    const [ pokemons, setPokemons ] = useState([]);
+
+    useEffect(() => {
+        const response = axios.post('http://localhost:4444/pokadex/list', searchBar);
+        response.then(result => {
+                const search = result.data.map((id, key) => {
+                    return {_id: id.pokaID};
+                })
+                const searchBar = {$or: search};
+                const pokemon = axios.post('http://localhost:4444/pokemon/list', searchBar);
+                pokemon.then(result => setPokemons(result.data))
+                    .catch(error=>console.error("Erreur avec notre API :",error.message));
+                })
+                .catch(error=>console.error("Erreur avec notre API :",error.message));
+    },[]);
+
+    return <div className='center-pokemon-list'><div className="pokemon-list">
+    {
+        pokemons.map(async (pokemon,key) => {
+            console.log(pokemon.img)
+            return await <Pokaball pokemon={pokemon.img} />;
+        })
+    }
+    </div></div>;
+}

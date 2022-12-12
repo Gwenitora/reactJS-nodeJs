@@ -12,11 +12,24 @@ app.use(cors())
 const jsonParser = bodyParser.json();
 dbo.connectToServer();
 
+const searchID = async function(json){
+  var receive = await json;
+  if (receive._id) {
+    receive._id = await new ObjectId(receive._id);
+  }
+  // console.log(receive)
+  try {
+    for (var key in receive) {
+      receive[key] = await searchID(receive[key]);
+    }
+    return await new Promise(res => { res(receive) });
+  } catch (error) {
+    return await new Promise(res => { res(receive) });
+  }
+}
 const body = async function(req){
   let body = await req.body;
-  if (body._id) {
-    body._id = await ObjectId(body._id);
-  }
+  body = await searchID(body)
   return await new Promise(res => {res(body)});
 }
 const listBDD = async (collection, body) => {
@@ -121,7 +134,7 @@ app.post("/pokadex/list",jsonParser, async function (req, res) {
   console.log(" ");
   const bod = await body(req, res);
   const result = await listBDD("pokadex", bod);
-  res.json(result)
+  await res.json(result);
 });
 app.post('/pokadex/insert', jsonParser, async (req, res) => {
   console.log(" ");

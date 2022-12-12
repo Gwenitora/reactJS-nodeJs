@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 import './App.css';
 import Home from './pages/home';
-import PokemonSearch from "./api/commandes";
+import {PokemonSearch, PokadexSearch} from "./api/commandes";
 
 function App() {
   return (
@@ -13,6 +13,9 @@ function App() {
       <Switch>
         <Route path="/pokaball">
           <PokemonSearch />
+        </Route>
+        <Route path="/pokadex">
+          <PokadexSearch />
         </Route>
         <Route path="/">
           <Home />
