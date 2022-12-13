@@ -13,16 +13,20 @@ export function PokemonSearch(){
             .catch(error=>console.error("Erreur avec notre API :",error.message));
     },[]);
 
-    return <div className='center-pokemon-list'><div className="pokemon-list">
-    {
-        pokemons.map((pokemon,key) =>{
-            if (pokemon.up == "1 / 1" || pokemon.up == "2 / 2" || pokemon.up == "3 / 3") {
-                return <><Pokaball pokemon={pokemon.img} /><div className='break' /></>;
-            }
-            return <Pokaball pokemon={pokemon.img} />;
-        })
+    if (pokemons) {
+        return <div className='center-pokemon-list'><div className="pokemon-list">
+        {
+            pokemons.map((pokemon,key) =>{
+                if (pokemon.up == "1 / 1" || pokemon.up == "2 / 2" || pokemon.up == "3 / 3") {
+                    return <><Pokaball pokemon={pokemon.img} /><div className='break' /></>;
+                }
+                return <Pokaball pokemon={pokemon.img} />;
+            })
+        }
+        </div></div>;
+    } else {
+        return <div className='center-pokemon-list'><div className="pokemon-list" /></div>;
     }
-    </div></div>;
 }
 
 export function PokadexSearch(){
@@ -43,12 +47,15 @@ export function PokadexSearch(){
                 .catch(error=>console.error("Erreur avec notre API :",error.message));
     },[]);
 
-    return <div className='center-pokemon-list'><div className="pokemon-list">
-    {
-        pokemons.map( (pokemon,key) => {
-            console.log(pokemon.img)
-            return <Pokaball pokemon={pokemon.img} />;
-        })
-    }
+    if (pokemons) {
+        return <div className='center-pokemon-list'><div className="pokemon-list">
+        {
+            pokemons.map( (pokemon,key) => {
+                return <Pokaball pokemon={pokemon.img} />;
+            })
+        }
     </div></div>;
+    } else {
+        return <div className='center-pokemon-list'><div className="pokemon-list" /></div>;
+    }
 }
