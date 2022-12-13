@@ -17,7 +17,13 @@ const searchID = async function(json){
   if (receive._id) {
     receive._id = await new ObjectId(receive._id);
   }
+  if (receive.pokaID) {
+    receive.pokaID = await new ObjectId(receive.pokaID);
+  }
   // console.log(receive)
+  if (Object.prototype.toString.call(receive) === "[object String]") {
+    return await new Promise(res => { res(receive) });
+  }
   try {
     for (var key in receive) {
       receive[key] = await searchID(receive[key]);
@@ -63,7 +69,9 @@ const getID = async function(collection, array){
     ids = await [];
     for (const element of array) {
       var take = await listBDD(collection, element);
-      ids.push(take[0]._id);
+      for (const ele of take) {
+        await ids.push(ele._id);
+      };
     };
     res(ids)
   });
@@ -140,6 +148,8 @@ app.post('/pokadex/insert', jsonParser, async (req, res) => {
   console.log(" ");
   const bod = await body(req, res);
   var pokemons = await getID("pokemons", bod)
+  console.log(" ");
+  console.log(pokemons)
   pokemons.forEach(pokemon => {
     insertBDD("pokadex", {pokaID: pokemon})
   });
@@ -148,7 +158,10 @@ app.post('/pokadex/insert', jsonParser, async (req, res) => {
 app.delete('/pokadex/delete', jsonParser, async (req, res) => {
   console.log(" ");
   const bod = await body(req, res);
-  await deleteBDD("pokadex", bod);
+  var pokemons = await getID("pokadex", bod)
+  pokemons.forEach(pokemon => {
+    deleteBDD("pokadex", {_id: pokemon});
+  });
   await res.json({"message": "Your request is sent with sucess"});
 });
 

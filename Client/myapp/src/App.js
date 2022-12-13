@@ -18,7 +18,7 @@ function App() {
           <PokadexSearch />
         </Route>
         <Route path="/">
-          <Home />
+          <PokemonSearch />
         </Route>
       </Switch>
     </Router>
