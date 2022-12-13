@@ -3,10 +3,32 @@
     display: flex;
     gap: 10px;
     flex-direction: column;
-    height: 475px;
+    height: 485px;
     flex-wrap: wrap;
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
+.pokemon-desc {
+    background-color: rgb(0, 195, 255);
+    height: 485px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.pokemon-desc svg {
+    width: 465px;
+}
+.pokemon-desc div {
+    padding: 20px;
+    text-align: right;
+}
+.pokemon-desc div h2 {
+    font-size: 75px;
+    margin: 0px;
+}
+
 .center-pokemon-list {
     display: flex;
     flex-direction: column;
@@ -26,4 +48,31 @@
 
 body {
     background-color: rgb(253, 255, 133)
+}
+
+.up {
+    z-index: -1;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    transform: rotate(3.142rad);
+    margin: 0px;
+    padding: 0px;
+    height: 300px;
+    width: 100%;
+}
+.down {
+    z-index: -1;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    height: 300px;
+    width: 100%;
+}
+
+.hey {
+    z-index: -2;
+    position: absolute;
+    width: 650px;
+    margin-top: 200px;
 }

@@ -1,10 +1,17 @@
-function Header(){
-    return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="10%" viewBox="0 0 40.98 40.98">
-        <path d="M10 10"
-            fill="#aaa" stroke="#222"
-        />
-    </svg>);
-}
+import styles from '../css/style.css';
 
-export default Header;
+export function Header(props){
+	if (props.pos == "left") {
+		return (
+			<img src="../img/droite.png" className="up" />
+		)
+	} else if (props.pos == "right") {
+		return (
+			<img src="../img/gauche.png" className="up" />
+		)
+	} else {
+		return (
+			<img src="../img/mid.png" className="up" />
+		)
+	}
+}
