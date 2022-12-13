@@ -16,7 +16,7 @@ export function PokemonSearch(){
     },[]);
 
     if (pokemons) {
-        return <div className='center-pokemon-list'><div className="pokemon-list">
+        return <div className='center-pokemon-list'><div className="pokemon-list max-div">
         {
             pokemons.map((pokemon,key) =>{
                 if (pokemon.up == "1 / 1" || pokemon.up == "2 / 2" || pokemon.up == "3 / 3") {
@@ -27,7 +27,7 @@ export function PokemonSearch(){
         }
         </div></div>;
     } else {
-        return <div className='center-pokemon-list'><div className="pokemon-list" /></div>;
+        return <div className='center-pokemon-list'><div className="pokemon-list max-div" /></div>;
     }
 }
 
