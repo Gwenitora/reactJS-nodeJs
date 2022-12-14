@@ -179,6 +179,9 @@ body {
     .title-home {
         font-size: 10px;
     }
+    .paragraph-home {
+        width: 90vw;
+    }
 }
 
 .pokadex-btn {
