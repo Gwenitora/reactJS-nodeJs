@@ -7,7 +7,7 @@ import './App.css';
 import {Home} from './pages/home';
 import {Header} from "./components/header";
 import {Footer} from "./components/footer";
-import {PokemonSearch, PokadexSearch, PokemonDescription} from "./api/commandes";
+import {PokemonSearch, PokadexSearch, PokemonDescription, PokemonEdit} from "./api/commandes";
 
 function App() {
   return (
@@ -18,6 +18,15 @@ function App() {
           <Home />
           <Footer pos="left" />
         </Route>
+        <Route path="/pokemon/edit/:id"
+          children={
+            <>
+              <Header pos="left" />
+              <PokemonEdit />
+              <Footer pos="left" />
+            </>
+          }
+        />
         <Route path="/pokemon/:id"
           children={
             <>

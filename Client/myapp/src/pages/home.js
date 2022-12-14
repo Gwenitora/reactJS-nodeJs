@@ -14,7 +14,7 @@ export function Home(){
             <img src="/img/welcome.png"/>
         </div>
         {/* <form>
-            <button className="admin-btn" type="button">Admin</button>
+            <button className="admin-btn" type="button">Creat New Pokemon</button>
         </form> */}
         <div className="paragraph-home">
             <div className="img">
