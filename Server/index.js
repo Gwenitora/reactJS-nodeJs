@@ -67,6 +67,7 @@ const updateBDD = function(collection, body){
 const getID = async function(collection, array){
   return await new Promise(async res => {
     ids = await [];
+    console.log(array)
     for (const element of array) {
       var take = await listBDD(collection, element);
       for (const ele of take) {
