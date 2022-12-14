@@ -43,6 +43,14 @@
     margin: 10px;
     flex-shrink: 1;
 }
+.pokaball.hover:hover .uppokeball {
+    transform: translate(0px, -200px);
+    transition: 1s
+}
+.pokaball.hover:hover .downpokeball {
+    transform: translate(0px, 200px);
+    transition: 1s
+}
 
 .break {
     flex-basis: 100%;

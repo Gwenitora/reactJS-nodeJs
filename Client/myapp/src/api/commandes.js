@@ -20,9 +20,9 @@ export function PokemonSearch(){
         {
             pokemons.map((pokemon,key) =>{
                 if (pokemon.up == "1 / 1" || pokemon.up == "2 / 2" || pokemon.up == "3 / 3") {
-                    return <><Link to={"/pokemon/" + pokemon._id}><Pokaball pokemon={pokemon.img} /></Link><div className='break' /></>;
+                    return <><Link to={"/pokemon/" + pokemon._id}><Pokaball pokemon={pokemon.img} hover={true} /></Link><div className='break' /></>;
                 }
-                return <Link to={"/pokemon/" + pokemon._id}><Pokaball pokemon={pokemon.img} /></Link>;
+                return <Link to={"/pokemon/" + pokemon._id}><Pokaball pokemon={pokemon.img} hover={true} /></Link>;
             })
         }
         </div></div>;
@@ -51,10 +51,10 @@ export function PokadexSearch(){
     },[]);
 
     if (pokemons) {
-        return <div className='center-pokemon-list'><div className="pokemon-list">
+        return <div className='center-pokemon-list'><div className="pokemon-list max-div">
         {
             pokemons.map( (pokemon,key) => {
-                return <Link to={"/pokemon/" + pokemon._id}><Pokaball pokemon={pokemon.img} /></Link>;
+                return <Link to={"/pokemon/" + pokemon._id}><Pokaball pokemon={pokemon.img} hover={true} /></Link>;
             })
         }
     </div></div>;
@@ -108,8 +108,44 @@ export function PokemonDescription(){
                     })
                 }
             </div>
+            {/* <AddToPokadex id={id} /> */}
         </div></div>;
     } else {
         return <div className='center-pokemon-list'><div className="pokemon-desc" /></div>;
     }
+}
+
+export function AddToPokadex(props) {
+    var searchBar = {"_id": props.id};
+    const [ inPokadex, switchInPokadex ] = useState([]);
+    switchInPokadex(null)
+
+    useEffect(() => {
+        console.log("test")
+        if (inPokadex==null) {
+            const response = axios.post('http://localhost:4444/pokedex/list', searchBar);
+            response
+                .then(result => switchInPokadex(result.data != {}))
+                .catch(error=>console.error("Erreur avec notre API :",error.message));
+        }
+            
+    },[]);
+
+    return (<>
+        <p>Est dans le pokadex ? : {inPokadex}</p>
+        <button title="Changer l'état" onPress={(axios, searchBar) => {
+            const response = axios.post('http://localhost:4444/pokedex/list', searchBar);
+            response
+                .then(result => {
+                    if (inPokadex != result.data) {
+                        if (result.data == false) {
+                            axios.delete('http://localhost:4444/pokedex/delete', searchBar);
+                        } else {
+                            axios.post('http://localhost:4444/pokedex/insert', [searchBar]);
+                        }
+                    }
+                })
+                .catch(error=>console.error("Erreur avec notre API :",error.message));
+        }} />
+    </>);
 }
