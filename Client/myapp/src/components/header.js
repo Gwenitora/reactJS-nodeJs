@@ -3,9 +3,9 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 
 export function Header(props){
-	if (props.pos == "left") {
+	if (props.pos === "left") {
 		return (<>
-			<img src="/img/droite.png" className="up" />
+			<img src="/img/droite.png" className="up" alt="right" />
 			<div className='navbar'>
 				<Link to='/home'>
 					<div className='selected'>
@@ -24,9 +24,9 @@ export function Header(props){
 				</Link>
 			</div>
 		</>);
-	} else if (props.pos == "right") {
+	} else if (props.pos === "right") {
 		return (<>
-			<img src="/img/gauche.png" className="up" />
+			<img src="/img/gauche.png" className="up" alt="left" />
 			<div className='navbar'>
 				<Link to='/home'>
 					<div>
@@ -47,7 +47,7 @@ export function Header(props){
 		</>);
 	} else {
 		return (<>
-			<img src="/img/mid.png" className="up" />
+			<img src="/img/mid.png" className="up" alt="middle" />
 			<div className='navbar'>
 				<Link to='/home'>
 					<div>

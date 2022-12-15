@@ -20,7 +20,6 @@ const searchID = async function(json){
   if (receive.pokaID) {
     receive.pokaID = await new ObjectId(receive.pokaID);
   }
-  // console.log(receive)
   if (Object.prototype.toString.call(receive) === "[object String]") {
     return await new Promise(res => { res(receive) });
   }
@@ -41,7 +40,7 @@ const body = async function(req){
 const listBDD = async (collection, body) => {
   console.log('Search ', collection, ':', body)
   return await new Promise(res => {
-    dbo.getDb().collection(collection).find(body).toArray((err,result) => {
+    dbo.getDb().collection(collection).find(body).sort( { "num": 1 } ).toArray((err,result) => {
       res(result);
     });
   });
@@ -124,7 +123,10 @@ app.post('/pokemon/insert', jsonParser, async (req, res) => {
 app.delete('/pokemon/delete', jsonParser, async (req, res) => {
   console.log(" ");
   const bod = await body(req, res);
-  await deleteBDD("pokemons", bod);
+  var pokemons = await getID("pokemons", bod)
+  pokemons.forEach(pokemon => {
+    deleteBDD("pokemons", {_id: pokemon});
+  });
   await res.json({"message": "Your request is sent with sucess"});
 });
 app.post('/pokemon/update', jsonParser, async (req, res) => {

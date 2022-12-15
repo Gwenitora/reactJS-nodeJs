@@ -30,9 +30,9 @@ function App() {
         <Route path="/pokemon/:id"
           children={
             <>
-              <Header pos="" />
+              <Header pos="right" />
               <PokemonDescription />
-              <Footer pos="" />
+              <Footer pos="right" />
             </>
           }
         />
